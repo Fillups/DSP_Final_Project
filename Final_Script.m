@@ -65,9 +65,8 @@ Rs = 100;
 %calculate the second order section respesentation of the filter
 sos = zp2sos(z,p,k);
 
-%filter the data with the second order section
-sosfilter_plot_spectrum(sos,x,Fs,name,'High');
-sosfilter_plot_spectrum(sos,y,Fs,name,'Low');
+%view the filter characteristics
+fvtool(sos)
 
 %%
 %create Kaiser FIR impulse window and filter the corrupted sound file
@@ -111,9 +110,8 @@ hdn = wc/pi*sinc((n-M/2)*wc/pi);
 %multiply the desired impulse response by the filter coefficients
 hd = hdn.*wn;
 
-%filter the data with the kaiser filter and plot
-filter_plot_spectrum(hd,1,x,Fs,name,'High');
-filter_plot_spectrum(hd,1,y,Fs,name,'Low');
+%view the filter characteristics
+fvtool(hd)
 
 %%
 %create Parks-McClellan equiripple FIR filter and filter the corrupted sound
@@ -141,9 +139,8 @@ dev = [(10^(rp/20)-1)/(10^(rp/20)+1)  10^(-rs/20)].';
 %output transfer function numerator b (denominator is 1 for FIR's)
 b = firpm(n,fo,ao,w);
 
-%filter the data with the parks filter and plot
-filter_plot_spectrum(b,1,x,Fs,name,'High');
-filter_plot_spectrum(b,1,y,Fs,name,'Low');
+%view the filter characteristics
+fvtool(b)
 
 %%
 %Plot the filtered spectra of the sound file
